@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { ArrowUpRight, Search, ShieldCheck } from "lucide-react";
 import { useMemo, useState } from "react";
 
@@ -8,19 +9,19 @@ const properties = [
     name: "Santal Crest Villa",
     location: "Cap Ferrat, France",
     price: "$18.9M",
-    accent: "from-[#f7e7ce]/40 via-[#121212] to-[#1f1f1f]",
+    image: "/property-cap-ferrat.svg",
   },
   {
     name: "Maison Verre",
     location: "Beverly Hills, USA",
     price: "$24.3M",
-    accent: "from-[#f7e7ce]/35 via-[#141414] to-[#222222]",
+    image: "/property-beverly-hills.svg",
   },
   {
     name: "Azure Chambers",
     location: "Dubai, UAE",
     price: "$31.4M",
-    accent: "from-[#f7e7ce]/32 via-[#151515] to-[#202020]",
+    image: "/property-dubai.svg",
   },
 ];
 
@@ -45,7 +46,16 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-[#121212] text-[#f7e7ce]">
       <section className="relative min-h-screen overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(247,231,206,0.08),transparent_22%),linear-gradient(180deg,rgba(0,0,0,0.2),rgba(0,0,0,0.68)),linear-gradient(135deg,#1a1a1a_0%,#121212_40%,#2c2116_100%)]" />
+        <div className="absolute inset-0">
+          <Image
+            src="/estate-hero-placeholder.svg"
+            alt="Luxury estate hero placeholder"
+            fill
+            priority
+            className="object-cover"
+          />
+        </div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(247,231,206,0.08),transparent_22%),linear-gradient(180deg,rgba(0,0,0,0.18),rgba(0,0,0,0.72))]" />
         <div className="absolute inset-0 scale-105 bg-[radial-gradient(circle_at_20%_20%,rgba(247,231,206,0.18),transparent_18%),radial-gradient(circle_at_80%_18%,rgba(255,255,255,0.08),transparent_16%),linear-gradient(120deg,rgba(255,255,255,0.05),transparent_50%)]" />
 
         <header className="relative z-20 px-6 py-6 sm:px-8 lg:px-10">
@@ -154,10 +164,15 @@ export default function Home() {
               className="group overflow-hidden rounded-[2rem] border border-white/10 bg-black/28 shadow-[0_24px_80px_rgba(0,0,0,0.28)]"
             >
               <div className="overflow-hidden">
-                <div
-                  className={`property-zoom aspect-[4/5] bg-gradient-to-br ${property.accent} transition-transform duration-700 group-hover:scale-110`}
-                  style={{ transformOrigin: "center center" }}
-                />
+                <div className="relative aspect-[4/5]">
+                  <Image
+                    src={property.image}
+                    alt={`${property.name} placeholder preview`}
+                    fill
+                    className="property-zoom object-cover transition-transform duration-700 group-hover:scale-110"
+                    style={{ transformOrigin: "center center" }}
+                  />
+                </div>
               </div>
 
               <div className="relative px-6 pb-6 pt-5">
@@ -224,12 +239,22 @@ export default function Home() {
             <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#121212] p-4">
               <div
                 key={planView}
-                className={`aspect-[16/10] rounded-[1.5rem] border border-white/8 transition-opacity duration-500 ${
-                  planView === "exterior"
-                    ? "bg-[linear-gradient(135deg,#2a211a_0%,#121212_46%,#3d2d20_100%)]"
-                    : "bg-[linear-gradient(135deg,#f6efe4_0%,#d9ccb7_42%,#c8b299_100%)]"
-                }`}
+                className="relative aspect-[16/10] rounded-[1.5rem] border border-white/8 transition-opacity duration-500"
               >
+                <Image
+                  src={
+                    planView === "exterior"
+                      ? "/estate-exterior-placeholder.svg"
+                      : "/estate-plan-placeholder.svg"
+                  }
+                  alt={
+                    planView === "exterior"
+                      ? "Estate exterior placeholder"
+                      : "Estate plan view placeholder"
+                  }
+                  fill
+                  className="rounded-[1.5rem] object-cover"
+                />
                 <div className="flex h-full flex-col justify-between p-6">
                   <div className="flex items-center justify-between">
                     <span
